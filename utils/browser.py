@@ -1,5 +1,7 @@
 from playwright.async_api import async_playwright
+
 from utils.user_agent import get_random_ua
+
 
 class PlaywrightManager:
     def __init__(self):

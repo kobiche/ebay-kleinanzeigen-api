@@ -1,8 +1,10 @@
+from fastapi import APIRouter
+
 from scrapers.inserat import get_inserate_details
-from fastapi import APIRouter, HTTPException
 from utils.browser import PlaywrightManager
 
 router = APIRouter()
+
 
 @router.get("/inserat/{id}")
 async def get_inserat(id: str):
@@ -14,4 +16,4 @@ async def get_inserat(id: str):
         result = await get_inserate_details(url, page)
         return {"success": True, "data": result}
     finally:
-        await browser_manager.close() 
+        await browser_manager.close()

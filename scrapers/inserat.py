@@ -1,17 +1,20 @@
 from fastapi import HTTPException
+
 from libs.websites import kleinanzeigen as lib
+
 
 async def get_inserate_details(url: str, page):
     try:
         await page.goto(url, timeout=120000)
-        
+
         try:
             await page.wait_for_selector("#viewad-cntr-num", state="visible", timeout=2500)
         except:
             print("[WARNING] Views element did not appear within 5 seconds")
-        
-        ad_id = await lib.get_element_content(page, "#viewad-ad-id-box > ul > li:nth-child(2)", default="[ERROR] Ad ID not found")
-        categorys = [cat.strip() for cat in await lib.get_elements_content(page, ".breadcrump-link") if cat.strip()]
+
+        ad_id = await lib.get_element_content(page, "#viewad-ad-id-box > ul > li:nth-child(2)",
+                                              default="[ERROR] Ad ID not found")
+        categories = [cat.strip() for cat in await lib.get_elements_content(page, ".breadcrump-link") if cat.strip()]
         title = await lib.get_element_content(page, "#viewad-title", default="[ERROR] Title not found")
         price_element = await lib.get_element_content(page, "#viewad-price")
         price = lib.parse_price(price_element)
@@ -21,7 +24,7 @@ async def get_inserate_details(url: str, page):
         description = await lib.get_element_content(page, "#viewad-description-text")
         if description:
             description = description.strip().replace("\n", " ").replace("  ", " ")
-        
+
         images = await lib.get_image_sources(page, "#viewad-image")
         seller_card = await page.query_selector("#viewad-contact")
         seller_details = await lib.get_seller_details(seller_card, page) if seller_card else {
@@ -38,7 +41,7 @@ async def get_inserate_details(url: str, page):
 
         return {
             "id": ad_id,
-            "categorys": categorys,
+            "categories": categories,
             "title": title.split(" • ")[-1] if " • " in title else title,
             "price": price,
             "shipping": True if shipping else False,
@@ -56,4 +59,4 @@ async def get_inserate_details(url: str, page):
         }
     except Exception as e:
         print(f"[ERROR] {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e)) 
+        raise HTTPException(status_code=500, detail=str(e))
