@@ -1,61 +1,44 @@
-# Ebay Kleinanzeigen API
+# Kleinanzeigen Scraper API
 
-<div align="center">
-  <h3 align="center">Ebay Kleinanzeigen API</h3>
+A FastAPI-based application for scraping and viewing eBay Kleinanzeigen ads.
 
-  <p align="center">
-    A powerful API interface for Ebay-Kleinanzeigen.de that enables you to fetch listings and specific data.
-  </p>
+## Features
 
-  <p align="center">
-    <b>🚀 Looking for a ready-to-use solution?</b>
-    <br />
-    Try it at <a href="https://adspy.one"><strong>adspy.one »</strong></a>
-    <br />
-    ✓ Automated Search Agents
-    <br />
-    🔜 Hosted Scraper API (Coming Soon)
-    <br />
-    <a href="https://github.com/DanielWTE/ebay-kleinanzeigen-api/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/DanielWTE/ebay-kleinanzeigen-api/issues">Request Feature</a>
-  </p>
-</div>
+- **Ad Scraping**: Scrape detailed ad data from eBay Kleinanzeigen.
+- **API Endpoints**:
+  - `GET /inserate`: Fetch multiple ads based on query parameters.
+  - `GET /inserat/{id}`: Fetch detailed information about a specific ad.
+- **Streamlit UI**: Visualize scraped results in an interactive dashboard.
+- **Blacklist Filtering**: Automatically filter ads based on keywords.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+## Installation
 
-## Getting Started
-
-### Want to skip the setup?
-Visit [adspy.one](https://adspy.one) for our hosted solution with additional features and zero configuration required.
-
-### Prerequisites
-- Python 3.12 or higher
-- pip (Python package manager)
-- Playwright
-
-### Installation
-
-1. Clone the repository
-```sh
-git clone https://github.com/DanielWTE/ebay-kleinanzeigen-api.git
-cd ebay-kleinanzeigen-api
-```
-
-2. Install dependencies
-```sh
-pip install -r requirements.txt
-playwright install chromium
-```
-
-3. Start the API
-```sh
-uvicorn main:app --reload
-```
-
-The API will be available at `http://localhost:8000`
-
-### API Endpoints
+1. Clone the repository:
+   ```bash
+    git clone https://github.com/kobiche/ebay-kleinanzeigen-api
+    cd kleinanzeigen-scraper
+   ```
+2. Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+3. Run the API:
+    ```bash
+    uvicorn main:app --reload
+   ```
+   
+4. (Optional) use the `scrape_runner.py` to automatically scrape the website for custom listings, 
+and save the results in JSON format
+    ```bash
+   python utils/scraper_runner.py
+   ```
+   
+5. (Optional) Start the Streamlit dashboard to visualize the JSON file:
+    ```bash
+   streamlit run utils/streamlit_results.py
+   ```
+   
+## API Endpoints
 
 #### 1. Fetch Listings
 **Endpoint:** `GET /inserate`
@@ -106,5 +89,3 @@ API documentation is available at `http://localhost:8000/docs` when running loca
 
 ## License
 Distributed under the MIT License. See `LICENSE` for more information.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
